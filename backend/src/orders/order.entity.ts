@@ -1,6 +1,7 @@
 import {
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -12,6 +13,7 @@ export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Index('idx_orders_customer_id')
   @ManyToOne(() => User, { nullable: false })
   @JoinColumn({ name: 'customer_id' })
   customer: User;

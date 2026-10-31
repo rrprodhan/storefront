@@ -6,6 +6,7 @@ import { AppService } from './app.service.js';
 import { ProductsModule } from './products/products.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { OrdersModule } from './orders/orders.module.js';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { OrdersModule } from './orders/orders.module.js';
         synchronize: true,
       }),
     }),
+    ScheduleModule.forRoot(),
     ProductsModule,
     AuthModule,
     OrdersModule,

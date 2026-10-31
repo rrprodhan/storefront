@@ -4,10 +4,11 @@ import { Product } from './product.entity.js';
 import { ProductsService } from './products.service.js';
 import { ProductsController } from './products.controller.js';
 import { AuthModule } from '../auth/auth.module.js';
+import { LowStockMonitor } from './low-stock.monitor.js';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Product]), AuthModule],
-  providers: [ProductsService],
+  providers: [ProductsService, LowStockMonitor],
   controllers: [ProductsController],
 })
 export class ProductsModule {}
