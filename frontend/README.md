@@ -1,6 +1,9 @@
 # Storefront web
 
 Angular frontend for the NestJS and PostgreSQL store in this repository.
+Start with the [project README](../README.md) for full setup, the
+[architecture guide](../docs/ARCHITECTURE.md) for the request flows, and
+the [API reference](../docs/API.md) for backend contracts.
 
 ## Run locally
 
