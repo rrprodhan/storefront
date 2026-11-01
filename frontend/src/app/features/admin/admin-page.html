@@ -1,0 +1,95 @@
+<section class="store-intro">
+  <div>
+    <span class="eyebrow"><span class="eyebrow-line"></span> THE COLLECTION</span>
+    <h1>Manage the collection.</h1>
+    <p>Keep your products and stock up to date.</p>
+  </div>
+</section>
+<div class="manage-layout">
+  <section class="editor-card">
+    <span class="card-kicker">PRODUCT DETAILS</span>
+    <h2>{{ editingId() === null ? 'Add a product' : 'Edit product #' + editingId() }}</h2>
+    <form (ngSubmit)="save()" #productForm="ngForm">
+      <label for="product-name">Name</label>
+      <input
+        id="product-name"
+        name="productName"
+        type="text"
+        maxlength="120"
+        required
+        [(ngModel)]="draft.name"
+        placeholder="Product name"
+      />
+      <div class="form-columns">
+        <div>
+          <label for="product-price">Price in dollars ($)</label>
+          <input
+            id="product-price"
+            name="productPrice"
+            type="text"
+            inputmode="decimal"
+            pattern="[0-9]+([.][0-9]{1,2})?"
+            required
+            [(ngModel)]="draft.priceDollars"
+            placeholder="15.00"
+          />
+        </div>
+        <div>
+          <label for="product-stock">Stock</label>
+          <input
+            id="product-stock"
+            name="productStock"
+            type="number"
+            min="0"
+            step="1"
+            required
+            [(ngModel)]="draft.stock"
+          />
+        </div>
+      </div>
+      <button
+        class="button button-primary"
+        type="submit"
+        [disabled]="productForm.invalid || busy()"
+      >
+        {{ busy() ? 'Saving…' : editingId() === null ? 'Add product' : 'Save changes' }}
+        <span aria-hidden="true">↗</span>
+      </button>
+      @if (editingId() !== null) {
+        <button class="button button-plain" type="button" (click)="reset()">Cancel edit</button>
+      }
+    </form>
+  </section>
+  <section class="inventory-card">
+    <div class="inventory-heading">
+      <div>
+        <span class="card-kicker">INVENTORY</span>
+        <h2>All products</h2>
+      </div>
+      <span class="item-count">{{ products.products().length }} total</span>
+    </div>
+    @for (product of products.products(); track product.id) {
+      <div class="inventory-row">
+        <div class="inventory-thumb" aria-hidden="true">
+          {{ product.name.charAt(0).toUpperCase() }}
+        </div>
+        <div class="inventory-name">
+          <strong>{{ product.name }}</strong
+          ><small>#{{ product.id }} · {{ product.stock }} in stock</small>
+        </div>
+        <span class="inventory-price">{{ formatPrice(product.priceCents) }}</span>
+        <button type="button" class="mini-button" (click)="startEdit(product)">Edit</button>
+        <button
+          type="button"
+          class="mini-button danger"
+          (click)="delete(product)"
+          [disabled]="busy()"
+        >
+          Delete
+        </button>
+      </div>
+    } @empty {
+      <p class="inventory-empty">No products yet. Add your first one.</p>
+    }
+  </section>
+</div>

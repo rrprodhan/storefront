@@ -48,8 +48,11 @@ and [local setup guide](docs/LOCAL_DEVELOPMENT.md), then read the
   reads and writes. Keep stock checks under a row lock and consider
   concurrency when changing order logic.
 - Avoid adding a public route that can grant `admin` access.
-- Angular HTTP calls and wire types belong in `frontend/src/app/store-api.ts`.
-  UI state lives in `app.ts`; markup and styling remain in their own files.
+- Angular backend types and requests belong in `frontend/src/app/core/api/`.
+  Protected request headers are attached by `core/auth/auth.interceptor.ts`.
+  Put page-specific behavior and markup in `features/`, shared state in feature
+  stores, and reusable layout or formatting in `shared/`. Register pages in
+  `app.routes.ts`; keep the root `app.ts` as a layout shell.
 
 ## Database changes
 

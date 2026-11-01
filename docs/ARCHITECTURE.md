@@ -32,13 +32,18 @@ an explicit API origin with CORS configured on the backend.
 | `backend/src/auth/`             | User entity, registration/login, JWT creation and guards.                        |
 | `backend/src/products/`         | Product entity, admin CRUD, browsing and low-stock monitor.                      |
 | `backend/src/orders/`           | Order and order-item entities, request DTO, checkout transaction.                |
-| `frontend/src/app/store-api.ts` | Typed calls to the backend.                                                      |
-| `frontend/src/app/app.ts`       | Session, product, bag, checkout and admin UI state.                              |
-| `frontend/src/app/app.html`     | One responsive screen with sign-in, shop, bag and admin views.                   |
-| `frontend/src/styles.css`       | Global visual design and responsive breakpoints.                                 |
+| `frontend/src/app/core/api/`   | Backend types, typed HTTP calls, and error handling.                             |
+| `frontend/src/app/core/auth/`  | Session storage, route guards, and bearer-token interceptor.                     |
+| `frontend/src/app/features/`   | Lazy sign-in, shop, bag, and admin pages, plus shared feature stores.             |
+| `frontend/src/app/shared/`     | Header, feedback banner, and money formatting.                                   |
+| `frontend/src/app/app.routes.ts` | URL routes and access rules.                                                    |
+| `frontend/src/styles/`         | Shared, page, and responsive design rules.                                       |
+| `frontend/src/styles.css`      | Imports style sections in cascade order.                                        |
 
-The Angular app uses standalone components and signals. `app.routes.ts` is
-currently empty: the views are switched inside the root component, not by URL.
+The Angular app uses standalone components, signals, and lazy URL routes. The
+root component only provides the shared layout and router outlet. An HTTP
+interceptor reads the current session and attaches the bearer token to API
+requests marked as protected by `StoreApi`.
 The bag exists only in browser memory and clears on reload. Login information
 is kept in the tab's `sessionStorage` until sign-out, tab close, or a 401
 response.

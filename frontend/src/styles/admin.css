@@ -1,0 +1,93 @@
+.manage-layout {
+  display: grid;
+  grid-template-columns: 350px minmax(0, 1fr);
+  align-items: start;
+  gap: 25px;
+}
+.editor-card,
+.inventory-card {
+  padding: 26px;
+}
+.editor-card h2,
+.inventory-card h2 {
+  font-size: 28px;
+}
+.form-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.editor-card .button-primary {
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+.editor-card .button-plain {
+  width: 100%;
+  margin-top: 6px;
+}
+.inventory-heading {
+  margin-bottom: 11px;
+}
+.inventory-heading h2 {
+  margin-bottom: 0;
+}
+.inventory-row {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 15px 0;
+  border-top: 1px solid #edf0e9;
+}
+.inventory-thumb {
+  width: 42px;
+  height: 43px;
+  font-size: 22px;
+}
+.inventory-name {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.inventory-name strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 700;
+}
+.inventory-name small {
+  color: #96a096;
+  font-size: 11px;
+}
+.inventory-price {
+  color: #3d5d45;
+  font:
+    400 15px Georgia,
+    serif;
+  white-space: nowrap;
+}
+.mini-button {
+  padding: 6px;
+  border: 0;
+  background: transparent;
+  color: #315943;
+  font-size: 12px;
+  font-weight: 700;
+}
+.mini-button:hover {
+  text-decoration: underline;
+}
+.mini-button.danger {
+  color: #aa5b50;
+}
+.mini-button:disabled {
+  opacity: 0.5;
+}
+.inventory-empty {
+  margin: 30px 0;
+  color: #8a9488;
+  font-size: 14px;
+}

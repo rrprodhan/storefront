@@ -1,0 +1,70 @@
+<section class="store-intro">
+  <div>
+    <span class="eyebrow"><span class="eyebrow-line"></span> THE COLLECTION</span>
+    <h1>Your bag.</h1>
+    <p>Review your selections before placing your order.</p>
+  </div>
+</section>
+@if (cart.entries().length === 0) {
+  <div class="empty-state">
+    <div class="empty-glyph">◇</div>
+    <h3>Your bag is empty.</h3>
+    <p>Add a product you like and it will appear here.</p>
+    <a class="button button-primary" routerLink="/shop">
+      Browse products <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+} @else {
+  <div class="cart-layout">
+    <section class="cart-list" aria-label="Items in your bag">
+      @for (line of cart.entries(); track line.product.id) {
+        <div class="cart-line">
+          <div class="cart-thumb" aria-hidden="true">
+            {{ line.product.name.charAt(0).toUpperCase() }}
+          </div>
+          <div class="cart-line-main">
+            <span class="card-kicker">PRODUCT {{ line.product.id }}</span>
+            <h3>{{ line.product.name }}</h3>
+            <span class="cart-unit-price">{{ formatPrice(line.product.priceCents) }} each</span>
+          </div>
+          <div class="cart-line-actions">
+            <div class="quantity-control" [attr.aria-label]="'Quantity for ' + line.product.name">
+              <button
+                type="button"
+                (click)="changeQuantity(line.product, -1)"
+                aria-label="Decrease quantity"
+              >
+                −
+              </button>
+              <span>{{ line.quantity }}</span>
+              <button
+                type="button"
+                (click)="changeQuantity(line.product, 1)"
+                [disabled]="line.quantity >= line.product.stock"
+                aria-label="Increase quantity"
+              >
+                +
+              </button>
+            </div>
+            <strong>{{ formatPrice(line.lineTotalCents) }}</strong>
+          </div>
+        </div>
+      }
+    </section>
+    <aside class="order-summary">
+      <span class="card-kicker">YOUR ORDER</span>
+      <h2>Order summary</h2>
+      <div class="summary-row">
+        <span>Items</span><span>{{ cart.count() }}</span>
+      </div>
+      <div class="summary-row summary-total">
+        <span>Total</span><strong>{{ formatPrice(cart.totalCents()) }}</strong>
+      </div>
+      <p>Stock and final prices are checked when you place your order.</p>
+      <button class="button button-primary" type="button" (click)="checkout()" [disabled]="busy()">
+        {{ busy() ? 'Placing order…' : 'Place order' }}
+        <span aria-hidden="true">↗</span>
+      </button>
+    </aside>
+  </div>
+}

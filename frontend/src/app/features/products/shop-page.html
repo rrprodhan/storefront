@@ -1,0 +1,108 @@
+<section class="store-intro">
+  <div>
+    <span class="eyebrow"><span class="eyebrow-line"></span> THE COLLECTION</span>
+    <h1>A little something for you.</h1>
+    <p>Explore what is in store today.</p>
+  </div>
+  <button
+    class="button button-outline refresh-button"
+    type="button"
+    (click)="products.refresh()"
+    [disabled]="products.loading()"
+  >
+    <span aria-hidden="true">↻</span> Refresh
+  </button>
+</section>
+@if (receipt.receipt(); as order) {
+  <section class="receipt-card" aria-labelledby="receipt-title">
+    <div class="receipt-icon" aria-hidden="true">✓</div>
+    <div class="receipt-body">
+      <span class="card-kicker">ORDER CONFIRMED</span>
+      <h2 id="receipt-title">Order #{{ order.id }} is placed.</h2>
+      <p>{{ order.createdAt | date: 'medium' }}</p>
+      <div class="receipt-lines">
+        @for (item of order.items; track item.productId) {
+          <span
+            >{{ item.quantity }} × {{ products.nameFor(item.productId) }} ·
+            {{ formatPrice(item.unitPriceCents) }} each</span
+          >
+        }
+      </div>
+    </div>
+    <button
+      class="receipt-close"
+      type="button"
+      (click)="receipt.dismiss()"
+      aria-label="Dismiss receipt"
+    >
+      ×
+    </button>
+  </section>
+}
+
+<div class="section-heading">
+  <div>
+    <span class="card-kicker">CURATED FOR YOU</span>
+    <h2>Shop all products</h2>
+  </div>
+  <span class="item-count"
+    >{{ products.products().length }}
+    {{ products.products().length === 1 ? 'item' : 'items' }}</span
+  >
+</div>
+
+@if (products.loading() && products.products().length === 0) {
+  <div class="empty-state">
+    <div class="empty-glyph">◌</div>
+    <h3>Loading products…</h3>
+  </div>
+} @else if (products.products().length === 0) {
+  <div class="empty-state">
+    <div class="empty-glyph">□</div>
+    <h3>The shelf is empty.</h3>
+    <p>There are no products to show yet.</p>
+  </div>
+} @else {
+  <div class="product-grid">
+    @for (product of products.products(); track product.id) {
+      <article class="product-card">
+        <div
+          class="product-art"
+          [class.art-second]="$index % 3 === 1"
+          [class.art-third]="$index % 3 === 2"
+        >
+          <div class="art-object" aria-hidden="true">
+            <span>{{ product.name.charAt(0).toUpperCase() }}</span>
+          </div>
+          <span class="art-id">NO. {{ product.id.toString().padStart(2, '0') }}</span>
+        </div>
+        <div class="product-details">
+          <div class="product-meta">
+            <span>{{ product.stock > 0 ? 'IN STOCK' : 'SOLD OUT' }}</span>
+            <span>{{ product.stock }} available</span>
+          </div>
+          <h3>{{ product.name }}</h3>
+          <div class="product-bottom">
+            <span class="price">{{ formatPrice(product.priceCents) }}</span>
+            <button
+              class="add-button"
+              type="button"
+              (click)="addToCart(product)"
+              [disabled]="product.stock === 0 || cart.quantityFor(product) >= product.stock"
+              [attr.aria-label]="'Add ' + product.name + ' to bag'"
+            >
+              {{
+                cart.quantityFor(product) >= product.stock && product.stock > 0
+                  ? 'Max added'
+                  : product.stock === 0
+                    ? 'Unavailable'
+                    : 'Add to bag'
+              }}
+              <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+}

@@ -1,0 +1,71 @@
+<div class="welcome-layout">
+  <section class="welcome-copy">
+    <span class="eyebrow"><span class="eyebrow-line"></span> Welcome to Storefront</span>
+    <h1>Good things,<br /><em>thoughtfully</em> chosen.</h1>
+    <p>Find what you need, keep track of your bag, and check out in a few simple steps.</p>
+    <div class="welcome-features">
+      <div><span class="feature-number">01</span><span>Browse the collection</span></div>
+      <div><span class="feature-number">02</span><span>Choose your favorites</span></div>
+      <div><span class="feature-number">03</span><span>Place your order</span></div>
+    </div>
+  </section>
+
+  <section class="auth-card" aria-labelledby="auth-title">
+    <div class="auth-heading">
+      <span class="card-kicker">YOUR ACCOUNT</span>
+      <h2 id="auth-title">
+        {{ mode() === 'login' ? 'Welcome back' : 'Create an account' }}
+      </h2>
+      <p>
+        {{
+          mode() === 'login' ? 'Sign in to explore the store.' : 'Join the store in just a moment.'
+        }}
+      </p>
+    </div>
+    <div class="auth-tabs" role="group" aria-label="Account action">
+      <button type="button" [class.selected]="mode() === 'login'" (click)="setMode('login')">
+        Sign in
+      </button>
+      <button type="button" [class.selected]="mode() === 'register'" (click)="setMode('register')">
+        Register
+      </button>
+    </div>
+    <form (ngSubmit)="submit()" #authForm="ngForm">
+      <label for="email">Email address</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        [(ngModel)]="email"
+        required
+        email
+        placeholder="you@example.com"
+      />
+      <label for="password">Password</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        [attr.autocomplete]="mode() === 'login' ? 'current-password' : 'new-password'"
+        [(ngModel)]="password"
+        required
+        [minlength]="mode() === 'register' ? 8 : 1"
+        [maxlength]="mode() === 'register' ? 72 : null"
+        placeholder="Enter your password"
+      />
+      @if (mode() === 'register') {
+        <p class="field-help">Use at least 8 characters.</p>
+      }
+      <button
+        class="button button-primary auth-submit"
+        type="submit"
+        [disabled]="authForm.invalid || busy()"
+      >
+        {{ busy() ? 'Please wait…' : mode() === 'login' ? 'Sign in' : 'Create account' }}
+        <span aria-hidden="true">↗</span>
+      </button>
+    </form>
+    <p class="auth-footnote">Your collection is waiting.</p>
+  </section>
+</div>

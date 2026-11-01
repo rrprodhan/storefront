@@ -1,0 +1,12 @@
+@if (feedback.notice()) {
+  <div class="alert alert-success" role="status">
+    <span aria-hidden="true">✓</span> {{ feedback.notice() }}
+    <button type="button" (click)="feedback.notice.set('')" aria-label="Dismiss message">×</button>
+  </div>
+}
+@if (feedback.error()) {
+  <div class="alert alert-error" role="alert">
+    <span aria-hidden="true">!</span> {{ feedback.error() }}
+    <button type="button" (click)="feedback.error.set('')" aria-label="Dismiss error">×</button>
+  </div>
+}

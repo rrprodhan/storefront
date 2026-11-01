@@ -1,0 +1,122 @@
+.cart-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  align-items: start;
+  gap: 34px;
+}
+.cart-list,
+.order-summary,
+.editor-card,
+.inventory-card {
+  border: 1px solid #e6e8df;
+  border-radius: 12px;
+  background: #fff;
+}
+.cart-list {
+  padding: 4px 24px;
+}
+.cart-line {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 23px 0;
+}
+.cart-line + .cart-line {
+  border-top: 1px solid #edf0e9;
+}
+.cart-thumb,
+.inventory-thumb {
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: #e8eee7;
+  color: #638169;
+  font-family: Georgia, serif;
+}
+.cart-thumb {
+  width: 76px;
+  height: 78px;
+  font-size: 39px;
+}
+.cart-line-main {
+  min-width: 0;
+  flex: 1;
+}
+.cart-line-main h3 {
+  margin: 7px 0 4px;
+  font:
+    400 21px Georgia,
+    serif;
+}
+.cart-unit-price {
+  color: #90988e;
+  font-size: 12px;
+}
+.cart-line-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 12px;
+}
+.cart-line-actions strong {
+  font:
+    400 20px Georgia,
+    serif;
+}
+.quantity-control {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dfe5db;
+  border-radius: 7px;
+}
+.quantity-control button {
+  width: 30px;
+  height: 29px;
+  border: 0;
+  background: transparent;
+  color: #315943;
+}
+.quantity-control button:disabled {
+  color: #b8c0b6;
+}
+.quantity-control span {
+  min-width: 21px;
+  text-align: center;
+  font-size: 12px;
+}
+.order-summary {
+  padding: 26px;
+}
+.order-summary h2 {
+  margin-bottom: 26px;
+  font-size: 28px;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 13px 0;
+  color: #6f7b70;
+  font-size: 14px;
+}
+.summary-total {
+  margin-top: 12px;
+  padding-top: 20px;
+  border-top: 1px solid #e8ece5;
+  color: #283a2d;
+}
+.summary-total strong {
+  font:
+    400 23px Georgia,
+    serif;
+}
+.order-summary p {
+  margin: 18px 0;
+  color: #929a90;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.order-summary .button {
+  width: 100%;
+  justify-content: space-between;
+}

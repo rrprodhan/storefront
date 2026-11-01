@@ -1,0 +1,30 @@
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" routerLink="/shop" aria-label="Storefront home">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>Storefront<span class="brand-dot">.</span></span>
+    </a>
+
+    @if (session.isLoggedIn()) {
+      <nav class="main-nav" aria-label="Main navigation">
+        <a routerLink="/shop" routerLinkActive="active" ariaCurrentWhenActive="page">Shop</a>
+        <a routerLink="/bag" routerLinkActive="active" ariaCurrentWhenActive="page">
+          Bag <span class="nav-count">{{ cart.count() }}</span>
+        </a>
+        @if (session.isAdmin()) {
+          <a routerLink="/manage" routerLinkActive="active" ariaCurrentWhenActive="page">
+            Manage
+          </a>
+        }
+      </nav>
+      <div class="account-actions">
+        <span class="account-email" [title]="session.user()!.email">{{
+          session.user()!.email
+        }}</span>
+        <button class="text-button" type="button" (click)="signOut()">Sign out</button>
+      </div>
+    } @else {
+      <span class="header-caption">A simple place to shop</span>
+    }
+  </div>
+</header>
